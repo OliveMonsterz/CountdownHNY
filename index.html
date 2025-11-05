@@ -1,0 +1,287 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.cdnfonts.com/css/monday-banana" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/sunflower.css" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/itgood.css" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/Rainytime.css" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/sineemoji.css" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/Moji.css" rel="stylesheet">
+        <link href="https://olivemonsterz.github.io/Widget_Notion/prettyplangVemoji.css" rel="stylesheet">        
+
+
+        
+    <title>CountDown NewYear</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>    
+    <style>
+
+body {
+      /*background: linear-gradient(135deg, #d7f0f3, #fffaf3);*/
+      background: transparent;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      display: flex;             /* ใช้ flex จัดกลาง */
+      justify-content: center;   /* จัดกลางแนวนอน */
+      align-items: center;       /* จัดกลางแนวตั้ง */
+      user-select: none;         /* ห้ามลากเลือกข้อความ */
+      opacity: 1;                /* ยังมองเห็นปกติ */
+    }
+
+    /* ส่วนหัว + ปุ่มอยู่บรรทัดเดียวกัน */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+     height: 50px;
+     
+    }
+
+    .h1 {
+      /* --- โครงสร้างพื้นฐาน --- */
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      /* --- การจัดตำแหน่งใน flexbox --- */
+      align-self: center;
+      order: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      /* --- ตัวอักษร --- */
+      font-weight: 500;
+      color: #333;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      /* --- การแสดงผล --- */
+      overflow: visible;
+      z-index: 8;
+      cursor:default;
+      }
+
+      #Part1{
+        font-family: 'sineemoji';
+        font-size: 38px;
+        transform: translateY(1px); 
+      }
+
+      #Part2{
+        font-family: 'Moji';
+        font-size: 36px;
+    }
+
+    .year {
+      /* --- โครงสร้างพื้นฐาน --- */
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      /* --- การจัดตำแหน่งใน flexbox --- */
+      align-self: center;
+      order: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      /* --- ตัวอักษร --- */
+      font-family: 'prettyplangVemoji';
+      font-size: 36px;
+      font-weight: 500;
+      color: #333;
+      letter-spacing: -4.5;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      /* --- การแสดงผล --- */
+      overflow: visible;
+      z-index: 8;
+      cursor:default;
+    }
+
+      #text {
+      /* --- โครงสร้างพื้นฐาน --- */
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      /* --- การจัดตำแหน่งใน flexbox --- */
+      align-self: center;
+      order: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      /* --- ตัวอักษร --- */
+      font-family: 'Rainytime';
+      font-size: 40px;
+      font-weight: 500;
+      color: #333;
+      letter-spacing: -0.5;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      /* --- การแสดงผล --- */
+      overflow: visible;
+      z-index: 8;
+      cursor:default;
+    }
+
+    .line {
+      font-family: 'sunflower';
+      font-size: 3em;
+      text-align: center;
+      height: 10px;
+      /* --- โครงสร้างพื้นฐาน --- */
+      margin: 0;
+      margin-bottom: 20px;
+      padding: 0;
+      border-radius: 0;
+      transform: translateY(10px); 
+      /* --- การจัดตำแหน่งใน flexbox --- */
+      align-self: center;
+      order: 0;
+      flex-grow: 0;
+      flex-shrink: 0;
+      /* --- การแสดงผล --- */
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      text-align: center;
+      user-select: none;      /* ห้ามลากเลือกข้อความ */
+      pointer-events: none;   /* ห้ามคลิก / hover / event ทั้งหมด */
+      opacity: 1;             /* ยังมองเห็นปกติ */
+      cursor: default;        /* เคอร์เซอร์ปกติ (ไม่เป็นมือ) */
+    }
+
+    /* ===== กล่องแสดงผล Countdown ===== */
+    .countdown-container {
+      display: flex;
+      flex-direction: row;
+      transform: translateY(-10px); 
+      /*gap: 15px;*/
+      *width: 425px;      /* กำหนดความกว้าง */
+      /*border: 1px solid;*/
+    }
+
+    .time-box1 {
+      padding: 10px 10px 0px 10px; /* บน ขวา ล่าง ซ้าย */
+      width: 60px;      /* กำหนดความกว้าง */
+      height: 100px;     /* กำหนดความสูง */
+      align-items: center; 
+      /*border: 1px solid;*/
+    }
+
+    .time-box2 {
+      padding: 10px 10px 0px 10px; /* บน ขวา ล่าง ซ้าย */
+      width: 75px;      /* กำหนดความกว้าง */
+      height: 100px;     /* กำหนดความสูง */
+      align-items: center; 
+      /*border: 1px solid;*/
+    }
+
+    .numbers {
+      font-family: 'Rainytime';
+      font-size: 4.9em;
+      transform: translateY(-25px); 
+      text-align: center;
+    }
+
+    .unit {
+      font-size: .86em;
+      letter-spacing: 1.5px;
+      transform: translateY(-35px); 
+      text-align: center;
+      justify-content: center; 
+      font-family: 'itgood'; 
+      }
+
+      .unit::after {
+        content: "";
+        margin-left: -2px;  /* ลบช่องว่างสุดท้ายออก */
+    }
+
+    #days,#hours,#minutes,#seconds {
+      display: flex;
+      justify-content: center;         /* ข้อความกลางแนวนอน */
+      align-items: center;             /* ข้อความกลางแนวตั้ง */
+      }
+
+      #days,#hours,#minutes,#seconds {
+        color: #54c7bb;
+      }
+
+    </style>
+    </head>
+
+<body>
+
+    <!-- ===== Header ===== -->
+    <div class="header">
+      <span class="h1" id="Part1">U</span>
+      <span id="text">CountDown</span>
+      <span class="year" id="coming-year">2026</span>
+      <span class="h1" id="Part2">y</span>
+    </div>
+    <div class="line ">๙๙๙๙๙๙๙</div>
+
+    <!-- ===== Countdown ===== -->
+    <div id="result" class="countdown-container">
+      <div class="time-box1">
+          <div id="days" class="numbers">00</div>
+          <div class="unit">DAYS</div>
+      </div>
+      <div class="time-box1">
+          <div id="hours" class="numbers">00</div>
+          <div class="unit">HOURS</div>
+      </div>
+      <div class="time-box2">
+          <div id="minutes" class="numbers">00</div>
+          <div class="unit">MINUTES</div>
+      </div>
+      <div class="time-box2">
+          <div id="seconds" class="numbers">00</div>
+          <div class="unit">SECONDS</div>
+      </div>
+    </div>
+
+<script>
+
+    const year = document.getElementById("coming-year");
+    const d = document.getElementById("days");
+    const h = document.getElementById("hours");
+    const m = document.getElementById("minutes");
+    const s = document.getElementById("seconds");
+
+    const comingYear = new Date().getFullYear() + 1;
+    year.innerHTML = comingYear;
+
+    function getTrueNumber(time) {
+        return time < 10 ? `0${time}` : time;
+    }
+
+    function calculateRemainingTime() {
+        const now = new Date();
+        const newYearTime = new Date(`Jan 1 ${comingYear} 00:00`);
+        
+        const diff = newYearTime - now;
+
+        const days = Math.floor(diff / 1000 / 60 / 60 / 24);
+        const hours = Math.floor((diff / 1000 / 60 / 60) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        d.innerHTML = getTrueNumber(days);
+        h.innerHTML = getTrueNumber(hours);
+        m.innerHTML = getTrueNumber(minutes);
+        s.innerHTML = getTrueNumber(seconds);
+    }
+    
+    setInterval(calculateRemainingTime, 1000);
+    
+</script>
+  
+</body></html>
